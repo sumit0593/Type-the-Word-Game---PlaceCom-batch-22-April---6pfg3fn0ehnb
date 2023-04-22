@@ -9,7 +9,6 @@ function App() {
   const [userInput, setUserInput] = useState('');
   const [result, setResult] = useState('');
   const [index, setIndex] = useState(0);
-  // const [isCheckingDisable, setIsCheckingDisable]=useState(false);
 
   
    useEffect(()=>{
