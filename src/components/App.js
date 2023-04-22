@@ -39,7 +39,6 @@ function App() {
   setFlashWord(true);
   setResult('');
   setUserInput('');
-  setIsCheckingDisable(false); 
   }
 
 
