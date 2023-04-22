@@ -4,21 +4,55 @@ import "../styles/App.css"
 const WORD_LIST = ['apple', 'banana', 'cherry', 'grape', 'orange'];
 
 function App() {
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState("");
   const [flashWord, setFlashWord] = useState(true);
   const [userInput, setUserInput] = useState('');
   const [result, setResult] = useState('');
   const [index, setIndex] = useState(0);
+  // const [isCheckingDisable, setIsCheckingDisable]=useState(false);
+
+  
+   useEffect(()=>{
+    if(flashWord){
+      const timerId=setTimeout(()=>{
+        setFlashWord(false);
+      },500);
+      return ()=>clearTimeout(timerId);
+    }
+   },[flashWord]);
+
+  const handleFormSubmit=(e)=>{
+    e.preventDefault();
+    if(userInput.toLocaleLowerCase() === word.toLocaleLowerCase()){
+      setResult('You Won!');
+    }else{
+      setResult('You Lost!');
+    }
+
+  }
+  const handleInputChange=(e)=>{
+    setUserInput(e.target.value);
+    
+  }
+  const handleRestartClick=()=>{
+  setIndex((prevIndex)=>(prevIndex+1) % WORD_LIST.length);
+  setWord(WORD_LIST[index]);
+  setFlashWord(true);
+  setResult('');
+  setUserInput('');
+  setIsCheckingDisable(false); 
+  }
 
 
   return (
     <div class="mini-game-container">
       <h2 class="mini-game-title">Mini Game</h2>
-      <p class="mini-game-word">{word}</p>
-      <form class="mini-game-form" onSubmit={handleFormSubmit}>
-        <input class="mini-game-input" type="text" value={userInput} onChange={handleInputChange} />
-        <button class="mini-game-button" type="submit">Check Answer</button>
-      </form>
+      {flashWord ? 
+      (<p class="mini-game-word">{word}</p>):
+      (<form class="mini-game-form" onSubmit={handleFormSubmit}>
+      <input class="mini-game-input" type="text" value={userInput} onChange={handleInputChange} />
+      <button class="mini-game-button" type="submit">Check Answer</button>
+    </form>)}
       {result && (
         <>
           <p class="mini-game-result">{result}</p>
