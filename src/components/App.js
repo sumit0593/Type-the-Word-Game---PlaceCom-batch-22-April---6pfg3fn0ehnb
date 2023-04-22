@@ -23,9 +23,9 @@ function App() {
   const handleFormSubmit=(e)=>{
     e.preventDefault();
     if(userInput.toLocaleLowerCase() === word.toLocaleLowerCase()){
-      setResult('You Won!');
+      setResult('You won!');
     }else{
-      setResult('You Lost!');
+      setResult('You lost!');
     }
 
   }
